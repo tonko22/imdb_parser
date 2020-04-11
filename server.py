@@ -13,9 +13,10 @@ def get_episodes(series_id: str, season_num: str = 1):
     in IMDB format (example: tt0701194)
     """
     try:
-        episodes_num, episodes_ids = web_parser.get_episode_ids_and_count(series_id, season_num)
+        
+        episodes_ids = web_parser.parse_ids(web_parser.urls["episodes"].format(series_id, season_num))
         result = {
-            "totalEpisodes": episodes_num,
+            "totalEpisodes": len(episodes_ids),
             "episodeIds": episodes_ids
             }
         return result
@@ -31,7 +32,7 @@ def get_top_rated_series(n: int):
     maximum entities: 200
     """
     try:
-        top_series_ids = web_parser.get_most_popular_series_ids()
+        top_series_ids = web_parser.parse_ids(web_parser.urls["most_popular_series"])
         result = {
             "top_series_ids": top_series_ids[:n],
             }
@@ -48,7 +49,7 @@ def get_newest_series(n: int):
     maximum entities: 200
     """
     try:
-        newest_series_ids = web_parser.get_newest_series_ids()
+        newest_series_ids = web_parser.parse_ids(web_parser.urls["newest_series"])
         result = {
             "newest_series_ids": newest_series_ids[:n],
             }
