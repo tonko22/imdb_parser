@@ -23,6 +23,7 @@ def get_most_popular_series_ids():
     """ Returns most popular series ids 
     in IMDB format (example: tt0096697) 
     sorted by Rating
+    maximum entities: 200
     """
     url = 'https://www.imdb.com/chart/tvmeter?sort=ir,desc&mode=simple&page=1'
     print("Parsing URL: ", url)

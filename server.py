@@ -28,6 +28,7 @@ def get_top_series(top_n: int):
     """ Returns most popular series ids 
     in IMDB format (example: tt0096697) 
     sorted by Rating
+    maximum entities: 200
     """
     try:
         top_series_ids = web_parser.get_most_popular_series_ids()
