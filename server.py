@@ -7,6 +7,9 @@ app = FastAPI()
 
 @app.get("/series/{series_id}/episodes/")
 def read_series(series_id: str, season_num: str = 1):
+    """ Endpoind returns number of episodes and episodes ID
+    in  season by series id and season num
+    """
     try:
         parser = IMDBSeriesIDParser(series_id, season_num)
         result = {
