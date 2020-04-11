@@ -13,7 +13,6 @@ def get_episodes(series_id: str, season_num: str = 1):
     in IMDB format (example: tt0701194)
     """
     try:
-        
         episodes_ids = web_parser.parse_ids(web_parser.urls["episodes"].format(series_id, season_num))
         result = {
             "totalEpisodes": len(episodes_ids),
