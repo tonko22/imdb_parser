@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import requests
 from bs4 import BeautifulSoup
 
@@ -10,7 +11,7 @@ def get_episode_ids_and_count(series_id: str, season_num: str):
     print("Parsing URL: ", url)
         
     html = requests.get(url).text
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, features="lxml")
         
     episodes_ids = []
     for link in soup.findAll('a'):
@@ -29,13 +30,30 @@ def get_most_popular_series_ids():
     print("Parsing URL: ", url)
         
     html = requests.get(url).text
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, features="lxml")
         
     top_series_ids = []
     for link in soup.findAll('a'):
         if link.get('href'):
             if link.get('href').startswith("/title/tt") and link.get('href').endswith("/"):
                 top_series_ids.append(link.get('href').split("/")[-2])
-    return top_series_ids
+    return list(OrderedDict.fromkeys(top_series_ids)) # drop duplicates while preserving order
 
-    
+def get_newest_series_ids():
+    """ Returns most popular series ids 
+    in IMDB format (example: tt0096697) 
+    sorted by Rating
+    maximum entities: 200
+    """
+    url = 'https://www.imdb.com/chart/tvmeter?sort=us,desc'
+    print("Parsing URL: ", url)
+        
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, features="lxml")
+        
+    newest_series_ids = []
+    for link in soup.findAll('a'):
+        if link.get('href'):
+            if link.get('href').startswith("/title/tt") and link.get('href').endswith("/"):
+                newest_series_ids.append(link.get('href').split("/")[-2])
+    return list(OrderedDict.fromkeys(newest_series_ids)) # drop duplicates while preserving order

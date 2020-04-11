@@ -23,8 +23,8 @@ def get_episodes(series_id: str, season_num: str = 1):
         exc_type, exc_value, exc_tb = sys.exc_info()
         return {"exception_type": str(exc_type), "exception_value": str(exc_value)}
 
-@app.get("/series/top/{n}")
-def get_top_series(n: int):
+@app.get("/series/top_rated/{n}")
+def get_top_rated_series(n: int):
     """ Returns most popular series ids 
     in IMDB format (example: tt0096697) 
     sorted by Rating
@@ -34,6 +34,23 @@ def get_top_series(n: int):
         top_series_ids = web_parser.get_most_popular_series_ids()
         result = {
             "top_series_ids": top_series_ids[:n],
+            }
+        return result
+    except:
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        return {"exception_type": str(exc_type), "exception_value": str(exc_value)}
+
+@app.get("/series/newest/{n}")
+def get_newest_series(n: int):
+    """ Returns most popular series ids 
+    in IMDB format (example: tt0096697) 
+    sorted by Rating
+    maximum entities: 200
+    """
+    try:
+        newest_series_ids = web_parser.get_newest_series_ids()
+        result = {
+            "newest_series_ids": newest_series_ids[:n],
             }
         return result
     except:
