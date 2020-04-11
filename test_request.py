@@ -17,7 +17,7 @@ if __name__ == "__main__":
     print("{}\n".format(response.json()))
     
     # get_top_series endpoint
-    postfix = "/get_top_12_series"
+    postfix = "/series/top/12"
     url = host+port+postfix
     print("Requesting {}".format(url))
     response = run_test_request(url)

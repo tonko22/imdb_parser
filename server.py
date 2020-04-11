@@ -23,8 +23,8 @@ def get_episodes(series_id: str, season_num: str = 1):
         exc_type, exc_value, exc_tb = sys.exc_info()
         return {"exception_type": str(exc_type), "exception_value": str(exc_value)}
 
-@app.get("/get_top_{top_n}_series")
-def get_top_series(top_n: int):
+@app.get("/series/top/{n}")
+def get_top_series(n: int):
     """ Returns most popular series ids 
     in IMDB format (example: tt0096697) 
     sorted by Rating
@@ -33,7 +33,7 @@ def get_top_series(top_n: int):
     try:
         top_series_ids = web_parser.get_most_popular_series_ids()
         result = {
-            "top_series_ids": top_series_ids[:top_n],
+            "top_series_ids": top_series_ids[:n],
             }
         return result
     except:
