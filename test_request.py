@@ -11,7 +11,7 @@ if __name__ == "__main__":
     port = ":8009"
     
     # episodes_id endpoint
-    postfix = "/series/tt0096697/episodes?season_num=4"
+    postfix = "/series/tt2861424/episodes?season_num=4"
     url = host+port+postfix
     print("Requesting {}".format(url))
     response = run_test_request(url)

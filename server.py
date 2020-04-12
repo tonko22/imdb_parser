@@ -20,10 +20,10 @@ def get_episodes(series_id: str, season_num: int = 1):
             "parsed_episodes_count": parsed_episodes_count,
             "episode_ids": episode_ids
             }
-        if parsed_episodes_count == web_meta_episodes_count:
-            return result
-        else:
-            return {"exception_type": "totalEpisodes not equals web_meta_episodes_count"}
+        if parsed_episodes_count != web_meta_episodes_count:
+            print("Warning, meta-episodes count not equals parsed episodes, seems like some episodes were unrated")
+        return result
+
     except:
         exc_type, exc_value, exc_tb = sys.exc_info()
         return {"exception_type": str(exc_type), "exception_value": str(exc_value)}
