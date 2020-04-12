@@ -22,7 +22,10 @@ def parse_episodes_ids(series_id: str, season_num: int):
             tag = el.get('href')
             if tag.startswith("/title/tt") and tag.endswith("/"):
                 episode_ids.append(tag.split("/")[-2])
-    return episode_ids
+    
+    # Some episodes are unrated, count rating widgets
+    rated_episodes_count = len(soup.findAll("div", {"class": "ipl-rating-widget"}))
+    return episode_ids[:5]
 
 def parse_episodes_count(series_id: str, season_num: int):
     """ Parse website meta to get episode count for parse_episodes_ids method
