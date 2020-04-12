@@ -9,15 +9,23 @@ def run_test_request(url: str):
 if __name__ == "__main__":
     host = "http://127.0.0.1"
     port = ":8009"
+    
     # episodes_id endpoint
-    postfix = "/series/tt0096697/episodes?season=16"
+    postfix = "/series/tt0096697/episodes?season_num=4"
+    url = host+port+postfix
+    print("Requesting {}".format(url))
+    response = run_test_request(url)
+    print("{}\n".format(response.json()))
+    
+    # top 250 series endpoint
+    postfix = "/top_250"
     url = host+port+postfix
     print("Requesting {}".format(url))
     response = run_test_request(url)
     print("{}\n".format(response.json()))
     
     # top rated series endpoint
-    postfix = "/series/top_rated/12"
+    postfix = "/series/most_popular/12"
     url = host+port+postfix
     print("Requesting {}".format(url))
     response = run_test_request(url)
